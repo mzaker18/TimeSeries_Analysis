@@ -26,17 +26,14 @@ for index, row in df_oil.iterrows():
             df_oil.at[index,'dcoilwtico']=df_oil['dcoilwtico'].iloc[index+1]
         elif index == len(df_oil)-1:
             df_oil.at[index,'dcoilwtico']=df_oil['dcoilwtico'].iloc[index-1]
-
+df_oil.rename(columns={'dcoilwtico':'oil_price'},inplace=True)
+df_train.set_index('date',inplace=True)
+df_train.index.freq='D'
 df_oil.set_index('date',inplace=True)
-df_oil.index.freq = 'D'
+df_oil.index.freq='D'
+
 #Join Train and oil to include daily oil price in training
-df_train = df_train.merge(df_oil,on='date',how='left')
-
-#Join Train and transction information
-df_train = df_train.merge(df_txn,on=['date','store_nbr'],how='left')
-
-#Join store information and training table
-df_train = df_train.merge(df_str,on='store_nbr',how='left')
+df = df_train.join(df_oil)
 
 #Join Holiday information and training information
 df_hol_national = df_hol[df_hol['locale']=='National']

@@ -1,4 +1,9 @@
+#ignore specific file formats
 .csv
 .json
 .txt
+#ignore log files
 *log*
+#ignore data and plots folder
+/data
+/plots

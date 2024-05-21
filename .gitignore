@@ -2,3 +2,6 @@
 .json
 .txt
 *log*
+/data
+/plots
+.venv
